@@ -1,0 +1,16 @@
+{
+  "name": "tpl",
+  "version": "0.1.0",
+  "description": "scaffold projects from github repos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jmegs",
+  "license": "MIT",
+  "dependencies": {
+    "@compositor/log": "^1.0.0-0",
+    "meow": "^5.0.0",
+    "shelljs": "^0.8.2"
+  }
+}
