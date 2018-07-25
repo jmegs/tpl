@@ -1,28 +1,28 @@
 const shell = require('shelljs')
 const meow = require('meow')
 const log = require('@compositor/log')
-log.name = 'tpl'
+const chalk = require('chalk')
 
-const scaffold = (repo, directory) => {
-  // log to console we're starting REMOTE in DIRECTORY
-  // try
-  // run git clone --depth 1 REMOTE DIRECTORY
-  shell.exec(
-    `git clone --depth 1 ${repo} ${directory}`,
-    { silent: true },
-    code => {
-      if (code !== 0) {
-        shell.exit(1)
-      }
-      // && cd DIRECTORY $$ rm -rf .git && git init
-      shell.cd(directory)
-      shell.rm('-rf', '.git')
-      shell.exec('git init', { silent: true })
-      shell.exec('git add --all', { silent: true })
-      shell.exec('git commit -m "initial commit"', { silent: true })
-      log('Success, ready to work.')
-    }
-  )
+// config
+log.name = 'tpl'
+shell.config.silent = true
+shell.config.fatal = true
+
+// shallow clone the repo, re-initialize git
+const asyncScaffold = async (repo, directory) => {
+  log(`Setting up ${directory} from ${repo}`)
+  try {
+    await shell.exec(`git clone --depth 1 ${repo} ${directory}`)
+    await shell.cd(directory)
+    await shell.rm('-rf', '.git')
+    shell.exec('git init')
+    shell.exec('git add --all')
+    shell.exec('git commit -m "initial commit"')
+    const formattedCommand = chalk.cyan(`cd ${directory}`)
+    log(`Ready to go! Type ${formattedCommand} to get started`)
+  } catch (error) {
+    log.error(error.message)
+  }
 }
 
 const REPO_REGEX = /^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$/
@@ -40,17 +40,14 @@ const cli = meow(`
 let repo = cli.input[0]
 let directory = cli.input[1]
 
+// handles case of user/repo input
 if (repo.match(REPO_REGEX)) {
   repo = `https://github.com/${repo}.git`
 }
 
+// uses the repo name if no directory is specified
 if (!directory) {
   directory = repo.match(NAME_REGEX)[0]
 }
 
-try {
-  log(`Setting up ${directory} from ${repo}`)
-  scaffold(repo, directory)
-} catch {
-  log.error('Git Error')
-}
+asyncScaffold(repo, directory)
