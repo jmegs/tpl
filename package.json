@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "scaffold projects from github repos",
   "main": "index.js",
+  "bin": {
+    "tpl": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
