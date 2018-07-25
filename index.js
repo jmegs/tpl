@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const shell = require('shelljs')
 const meow = require('meow')
 const log = require('@compositor/log')
