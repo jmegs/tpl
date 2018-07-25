@@ -1,5 +1,5 @@
 {
-  "name": "tpl",
+  "name": "@jmegs/tpl",
   "version": "0.1.0",
   "description": "scaffold projects from github repos",
   "main": "index.js",
