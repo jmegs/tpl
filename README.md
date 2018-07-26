@@ -1,6 +1,7 @@
 # TPL
 
 Quickly start up new projects from examples on Github.
+![gif of tpl in action](/tpl.gif)
 
 ## Installing
 
