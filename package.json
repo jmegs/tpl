@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "John Meguerian <johnmeguerian@gmail.com> (http://johnmeguerian.com)",
+  "repository": "github:jmegs/tpl",
   "license": "MIT",
   "dependencies": {
     "@compositor/log": "^1.0.0-0",
